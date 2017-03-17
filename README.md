@@ -12,10 +12,18 @@ ADD https://github.com/kronostechnologies/docker-init-entrypoint/releases/downlo
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 ```
- 
+
+## Environment variable
+### ENTRYPOINT_ROOT
+If this variable is set, it will change the root directory of the start/stop scripts i.e.:
+  - `ENTRYPOINT_ROOT=""` scripts will be sourced from `/start.d` and `/stop.d`
+  - `ENTRYPOINT_ROOT="/root"` scripts will be sourced from `/root/start.d` and `/root/stop.d`.
+
+Default is `/k`.
+
 ## Bootstraping Folders
 
-The bootstraping folders are `/k/start.d/` and `/k/stop.d` which contains scripts to start and stop services respectively. 
+The bootstraping folders are `/k/start.d/` and `/k/stop.d` which contains scripts to start and stop services respectively.
 
 Here are some general advice about those scripts :
 
