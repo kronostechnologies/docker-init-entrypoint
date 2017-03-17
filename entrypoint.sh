@@ -1,18 +1,11 @@
 #!/usr/bin/env bash
 
-execute_script() {
-	local script=$1
-
-	chmod +x "${script}"
-	echo "> ${script}... processing"
-	$script
-}
-
 process_scripts() {
 	local path=$1
 
 	for script in $(ls $path | sort -n); do
-		execute_script "${path}/${script}"
+		echo "> ${path}/${script}... processing"
+		source "${path}/${script}"
 	done
 }
 
