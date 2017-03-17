@@ -11,14 +11,18 @@ process_scripts() {
 
 finish() {
 	echo '> Stopping all services..'
-	process_scripts /k/stop.d
+	process_scripts "${ENTRYPOINT_ROOT}/stop.d"
 	echo '> Shutting down now.'
 }
 
 trap finish SIGTERM SIGQUIT SIGINT
 
+if [ -z ${ENTRYPOINT_ROOT+x} ]; then
+	ENTRYPOINT_ROOT="/k"
+fi
+
 echo '> Starting all services..'
-process_scripts /k/start.d
+process_scripts "${ENTRYPOINT_ROOT}/start.d"
 echo '> Fully Booted.'
 
 if [[ -n "${@}" ]]; then
