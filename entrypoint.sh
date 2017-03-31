@@ -12,9 +12,11 @@ process_scripts() {
 kill_remaining_process() {
 	# Gather all PIDs except for pid 1 (entrypoint script) into a
 	# space separated list, send SIGTERM and wait for those process to finish properly
-	PIDS=`ps -e | grep -v --exclude=' ${BASHPID} ' -E "PID|\s1\s" | awk 'BEGIN { ORS=" " }; {print $1}'`
-	kill -TERM $PIDS >> /tmp/pidtokill
+	ps -e > /tmp/ps
+	local PIDS=`grep -v -E "PID|\s1\s|ps" /tmp/ps | awk 'BEGIN { ORS=" " }; {print $1}'`;
+	rm /tmp/ps
 
+	kill -TERM $PIDS
 	for PID in $PIDS; do
 		while [[ -d /proc/$PID ]]; do
 			sleep 0.1

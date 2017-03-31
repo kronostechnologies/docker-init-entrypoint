@@ -13,6 +13,14 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 ```
 
+## Flow
+Entrypoint follows a specific flow divided in two main part: starting/waiting on services(1,2) and stopping/killing services (3,4).
+
+  1. Source all the script in `/k/start.d/` folder sorted according to string numerical value.
+  2. Execute and wait on the commands passed as parameter (`$@`) or, if no command are passed, sleep infinity. In docker, `$@` correspond to the `CMD` directive.
+  3. Whenever `SIGTERM`, `SIGQUIT` or `SIGINT` is trapped, source all the script in `/k/stop.d`  folder sorted according to string numerical value.
+  4. Send `SIGTERM` signal to any remaining process, excluding PID 1.
+
 ## Environment variable
 ### ENTRYPOINT_ROOT
 If this variable is set, it will change the root directory of the start/stop scripts i.e.:
