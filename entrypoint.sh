@@ -16,12 +16,14 @@ kill_remaining_process() {
 	local PIDS=`grep -v -E "PID|\s1\s|ps" /tmp/ps | awk 'BEGIN { ORS=" " }; {print $1}'`;
 	rm /tmp/ps
 
-	kill -TERM $PIDS
-	for PID in $PIDS; do
-		while [[ -d /proc/$PID ]]; do
-			sleep 0.1
+	if [ -n "$PIDS" ]; then
+		kill -TERM $PIDS
+		for PID in $PIDS; do
+			while [[ -d /proc/$PID ]]; do
+				sleep 0.1
+			done
 		done
-	done
+	fi
 }
 
 finish() {
