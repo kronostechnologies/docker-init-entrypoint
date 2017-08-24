@@ -65,7 +65,7 @@ Starting web server: apache2AH00558: apache2: Could not reliably determine the s
 ```
   > The docker is now waiting on the `tail` command.
 
-### Stoping this docker
+### Stopping this docker
 
 ```
 > Stopping all services..
