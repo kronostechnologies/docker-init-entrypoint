@@ -47,7 +47,7 @@ echo '> Fully Booted.'
 
 if [[ -n "${@}" ]]; then
 	echo "> Executing \`${@}\`"
-	$@ &
+	"${@}" &
 else
 	sleep infinity &
 fi
