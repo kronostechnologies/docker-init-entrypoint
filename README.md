@@ -1,10 +1,12 @@
 # Docker Init Entrypoint
 
-The script `entrypoint.sh` is a basic service init framework for containers. Entrypoint will source scripts in `/k/start.d` and `/k/stop.d` to start and stop services respectively. The `CMD` directive of the dockerfile is an arbritrary command that will be executed in background. The entrypoint will wait on that process before shutting down.
+The script `entrypoint.sh` is a basic service init framework for containers. Entrypoint will source scripts in `/k/start.d` and `/k/stop.d` to start and stop services respectively.
+
+The `CMD` directive of the dockerfile is an arbritrary command that will be executed in background. Entrypoint will wait on that process before shutting down.
 
 ## Install
 
-Simply use the `ADD` and `ENTRYPOINT` directive i.e.:
+Use the `ADD` and `ENTRYPOINT` directive e.g.:
 
 ```
 FROM debian:latest
@@ -23,7 +25,7 @@ Entrypoint follows a specific flow divided in two main part: starting/waiting on
 
 ## Environment variable
 ### ENTRYPOINT_ROOT
-If this variable is set, it will change the root directory of the start/stop scripts i.e.:
+If this variable is set, it will change the root directory of the start/stop scripts e.g.:
   - `ENTRYPOINT_ROOT=""` scripts will be sourced from `/start.d` and `/stop.d`
   - `ENTRYPOINT_ROOT="/root"` scripts will be sourced from `/root/start.d` and `/root/stop.d`.
 
@@ -45,3 +47,7 @@ The `CMD` directive of the dockerfile is an arbritrary command that will be exec
 ## Examples
 
 Examples can be found in the `examples` directory of this repository.
+
+## Troubleshoot
+### Error `/usr/local/bin/entrypoint.sh: line 15: ps: command not found`
+Some base image such as debian "-slim" variant does not come with `ps` installed. Entrypoint needs `ps` to list remaining process so it can terminate them. Install ps with `apt-get update && apt-get install procps -y` in your image.
