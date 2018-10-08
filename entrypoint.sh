@@ -3,10 +3,15 @@
 process_scripts() {
 	local path=$1
 
-	for script in $(ls $path | sort -n); do
-		echo "> Sourcing '${path}/${script}'.."
-		source "${path}/${script}"
-	done
+	if [[ ! -d $path ]]; then
+		echo "> Entrypoint point path script '${path}' does not exist."
+		echo "> Skipping.."
+	else
+		for script in $(ls $path | sort -n); do
+			echo "> Sourcing '${path}/${script}'.."
+			source "${path}/${script}"
+		done
+	fi
 }
 
 kill_remaining_process() {
