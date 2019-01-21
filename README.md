@@ -10,7 +10,7 @@ Use the `ADD` and `ENTRYPOINT` directive e.g.:
 
 ```
 FROM debian:latest
-ADD https://github.com/kronostechnologies/docker-init-entrypoint/releases/download/1.0.0/entrypoint.sh /usr/local/bin/entrypoint.sh
+ADD https://github.com/kronostechnologies/docker-init-entrypoint/releases/download/1.3.2/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 ```
