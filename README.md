@@ -50,4 +50,4 @@ Examples can be found in the `examples` directory of this repository.
 
 ## Troubleshoot
 ### Error `/usr/local/bin/entrypoint.sh: line 15: ps: command not found`
-Some base image such as debian "-slim" variant does not come with `ps` installed. Entrypoint needs `ps` to list remaining process so it can terminate them. Install ps with `apt-get update && apt-get install procps -y` in your image.
+Some base image such as debian "-slim" variant does not come with `ps` installed. Entrypoint needs `ps` to list remaining process so it can terminate them. Install ps with `apt update && apt install procps -y` in your image.
