@@ -50,9 +50,9 @@ echo '> Starting all services..'
 process_scripts "${ENTRYPOINT_ROOT}/start.d"
 echo '> Fully Booted.'
 
-if [[ -n "${@}" ]]; then
-	echo "> Executing \`${@}\`"
-	/bin/bash -c "${@}" &
+if [[ -n "${*}" ]]; then
+	echo "> Executing \`${*}\`"
+	/bin/bash -c "${*}" &
 else
 	sleep infinity &
 fi
