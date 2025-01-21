@@ -14,16 +14,23 @@ process_scripts() {
 	fi
 }
 
+10 21 22 247 248 249 250 251 264 272 273
 kill_remaining_process() {
 	# Gather all PIDs except for pid 1 (entrypoint script) into a
 	# space separated list, send SIGTERM and wait for those process to finish properly
+	# ignore the process if it is a bash shell
 	ps -e > /tmp/ps
 	local PIDS=`grep -v -E "PID|\s1\s|ps" /tmp/ps | awk 'BEGIN { ORS=" " }; {print $1}'`;
-	rm /tmp/ps
 
 	if [ -n "$PIDS" ]; then
 		kill -TERM $PIDS
 		for PID in $PIDS; do
+			processName= $(cat /proc/"$PID"/cmdline)
+			echo "> Waiting for process $PID ($processName) to finish.." 
+			if [[ "$processName" == "bash" ]]; then
+				echo "> Skipping bash shell process.."
+				continue
+			fi 
 			while [[ -d /proc/$PID ]]; do
 				sleep 0.1
 			done
