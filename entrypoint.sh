@@ -14,7 +14,6 @@ process_scripts() {
 	fi
 }
 
-10 21 22 247 248 249 250 251 264 272 273
 kill_remaining_process() {
 	# Gather all PIDs except for pid 1 (entrypoint script) into a
 	# space separated list, send SIGTERM and wait for those process to finish properly
