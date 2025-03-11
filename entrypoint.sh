@@ -26,7 +26,7 @@ kill_remaining_process() {
 		for PID in $PIDS; do
 			processName=$(cat /proc/$PID/cmdline)
 			echo "> Waiting for process $PID ($processName) to finish.." 
-			if [[ "$processName" == "bash" ]]; then
+			if [[ "$processName" == *"bash"* ]]; then
 				echo "> Skipping bash shell process.."
 				continue
 			fi 
